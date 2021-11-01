@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.HomeVideo" parent="@style/Theme.Leanback" />
+</resources>
