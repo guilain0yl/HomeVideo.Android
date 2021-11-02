@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="5"
+    android:viewportHeight="5">
+    <group
+        android:name="play"
+        android:rotation="0">
+
+        <path
+            android:fillColor="#6CFFFFFF"
+            android:pathData="M 0,2 A 2,2 0 1,0 4,2 A 2,2 0 1,0 0,2"></path>
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M 1.2,1 V 3 L 3.2,2 L 1.2,1"
+            android:strokeWidth="0.1"
+            android:strokeColor="#FFFFFF"></path>
+
+    </group>
+</vector>
