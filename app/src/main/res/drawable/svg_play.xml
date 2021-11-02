@@ -2,8 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="100dp"
     android:height="100dp"
-    android:viewportWidth="5"
-    android:viewportHeight="5">
+    android:viewportWidth="4"
+    android:viewportHeight="4">
     <group
         android:name="play"
         android:rotation="0">

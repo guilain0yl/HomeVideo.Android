@@ -42,7 +42,7 @@ class PlayerFragment : Fragment() {
         progress.layoutParams.width = (GlobalConfig.screenWidth * 0.9).toInt();
 
         button = view.findViewById<ImageView>(R.id.play_pause_button);
-        button.layoutParams.width = (GlobalConfig.screenWidth / 25.6).toInt();
+        button.layoutParams.width = (GlobalConfig.screenWidth / 12).toInt();
         button.layoutParams.height = button.layoutParams.width;
 
         player.setOnPreparedListener {
@@ -84,31 +84,28 @@ class PlayerFragment : Fragment() {
                 return true;
             }
             KeyEvent.KEYCODE_DPAD_LEFT -> {
-                keyDownFlag = true;
-                lastKeyDownTime = System.currentTimeMillis();
-
-                if (progress.progress - 10 < 0)
-                    progress.progress = 0;
-                else
-                    progress.progress -= 10;
-
-                display(progress);
+                moveProgress(-10);
                 return true;
             }
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                keyDownFlag = true;
-                lastKeyDownTime = System.currentTimeMillis();
-
-                if (progress.progress + 10 > progress.max)
-                    progress.progress = progress.max;
-                else
-                    progress.progress += 10;
-
-                display(progress);
+                moveProgress(10);
                 return true;
             }
             else -> return false;
         }
+    }
+
+    private fun moveProgress(sec: Int) {
+        keyDownFlag = true;
+        lastKeyDownTime = System.currentTimeMillis();
+
+        when {
+            progress.progress + sec < 0 -> progress.progress = 0
+            progress.progress + sec > progress.max -> progress.progress = progress.max
+            else -> progress.progress += sec
+        };
+
+        display(progress);
     }
 
     private fun display(view: View) {
@@ -140,12 +137,16 @@ class PlayerFragment : Fragment() {
                 if (keyDownFlag) {
                     if (System.currentTimeMillis() > lastKeyDownTime + 600) {
                         keyDownFlag = false;
+                        val state = player.isPlaying
                         player.pause();
                         var seek = progress.progress * 1000;
                         if (seek > player.duration)
                             seek = player.duration;
                         player.seekTo(seek);
                         player.start();
+                        Thread.sleep(200);
+                        if (!state)
+                            player.pause();
                     }
                 }
             }
